@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:message_me_app/core/utils/thems/my_colors.dart';
@@ -71,7 +72,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(width: 5),
+              const SizedBox(width: 5),
               CircleAvatar(
                 backgroundColor: Colors.transparent,
                 child: Stack(
@@ -102,12 +103,19 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
                     });
                   }
                 },
-                child: Icon(
-                  isPlaying ? Icons.pause_outlined : Icons.play_arrow_rounded,
-                  size: 40,
-                  color: widget.isMe ? Colors.white : AppColorss.iconsColors,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 4.5),
+                    Icon(
+                      isPlaying ? FluentIcons.pause_24_regular : FluentIcons.play_24_regular,
+                      size: 30,
+                      color: widget.isMe ? Colors.white : AppColorss.iconsColors,
+                    ),
+                  ],
                 ),
               ),
+              const SizedBox(width: 5),
               Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

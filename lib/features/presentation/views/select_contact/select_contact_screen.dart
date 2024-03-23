@@ -27,7 +27,7 @@ class SelectContactScreen extends StatelessWidget {
               borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
             ),
             child: Scaffold(
-              backgroundColor: AppColorss.secondaryColor,
+              backgroundColor: AppColorss.thirdColor,
               appBar: SelectContactAppBar(
                 numOfContacts:
                     cubit.contactOnWhats.length + cubit.contactNotOnMessageMe.length,

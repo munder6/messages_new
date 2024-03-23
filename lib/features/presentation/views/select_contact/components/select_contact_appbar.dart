@@ -21,7 +21,7 @@ class SelectContactAppBar extends StatelessWidget
       automaticallyImplyLeading : false,
       elevation: 0,
       centerTitle: true,
-      backgroundColor: AppColorss.secondaryColor,
+      backgroundColor: AppColorss.thirdColor,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

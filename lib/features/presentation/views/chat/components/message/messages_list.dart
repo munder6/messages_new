@@ -79,10 +79,13 @@ class _MessagesListState extends State<MessagesList> {
             controller: messageController,
             itemCount: snapshot.data?.length,
             shrinkWrap: true,
+            reverse: false,
             padding: const EdgeInsets.only(bottom: 5),
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
-              var message = snapshot.data![index];
+             var message = snapshot.data![index];
+            //  var message = snapshot.data![snapshot.data!.length - 1 - index]; // Reverse the index
+
               ////////////////////////////////////////////
               bool isFirst = false;
               bool isLast = false;
@@ -138,11 +141,11 @@ class _MessagesListState extends State<MessagesList> {
 
               return Column(
                 children: [
-                  if (index == 0 ||
-                      message.timeSent
-                          .difference(snapshot.data![index - 1].timeSent)
-                          .inHours >= 3)
-                    ChatTimeCard(dateTime: message.timeSent),
+                  // if (index == 0 ||
+                  //     message.timeSent
+                  //         .difference(snapshot.data![index - 1].timeSent)
+                  //         .inHours >= 3)
+                  //   ChatTimeCard(dateTime: message.timeSent),
 
                   if (message.receiverId == widget.receiverId)
                     Column(

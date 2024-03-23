@@ -108,7 +108,7 @@ class _MainLayoutScreenState extends State<MainLayoutScreen>
                   // onPressed: () {navigateTo(context, Routes.selectContactRoute);},
                 onPressed: (){
                   showModalBottomSheet<dynamic>(
-                    backgroundColor: AppColorss.secondaryColor,
+                    backgroundColor: AppColorss.thirdColor,
                       isScrollControlled: true,
                       shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(top: Radius.circular(20),)

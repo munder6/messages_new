@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -248,7 +250,7 @@ class _MyMessageCardState extends State<MyMessageCard> {
                               ConstrainedBox(
                                 constraints: BoxConstraints(
                                   maxWidth: context.width(0.6),
-                                  maxHeight: 600
+                                  maxHeight: 5000
                                 ),
                                 child:
                                 Container(
@@ -349,59 +351,84 @@ class _MyMessageCardState extends State<MyMessageCard> {
       context: context,
       builder: (BuildContext context) {
         String editedMessage = widget.message.text;
-        return AlertDialog(
-          backgroundColor:  AppColorss.thirdColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          title: Text(AppStringss.editMessage, style: TextStyle(color: AppColorss.textColor1),),
-          content: Container(
-            decoration: BoxDecoration(
-                color: AppColorss.secondaryColor,
-                borderRadius: BorderRadius.circular(15)
-            ),
-            child: TextField(
-              keyboardAppearance: Brightness.dark,
-              textAlignVertical: TextAlignVertical.center,
-              style: TextStyle(color: AppColorss.textColor1, fontFamily: 'Arabic'),
-              onChanged: (value) {
-                editedMessage = value;
-              },
-              controller: TextEditingController(text: editedMessage),
-              decoration:  InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                fillColor: const Color.fromRGBO(20, 30, 40, 1.0),
-                prefixIcon: Icon(
-                  Icons.edit,
-                  color: AppColorss.iconsColors.withOpacity(0.54),
-                ),
-                focusedBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                enabled: true,
+        return Stack(
+          children: [
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              child: Container(
+                color: Colors.black.withOpacity(0.5),
+                constraints: const BoxConstraints.expand(),
               ),
             ),
-          ),
-          actions: [
-            TextButton(
-              child: Text(AppStringss.no, style: TextStyle(color: AppColorss.textColor2),),
-              onPressed: () {
-                Navigator.pop(context); // Close the dialog
-              },
+            AlertDialog(
+              backgroundColor:  Colors.transparent,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              title: Text(AppStringss.editMessage, style: TextStyle(color: AppColorss.textColor1),),
+              content: ConstrainedBox(
+                constraints: BoxConstraints(
+                    maxWidth: context.width(0.6),
+                    maxHeight: 600
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      stops: [0, 1, 2],
+                      colors: [AppColorss.myMessageColor2, AppColorss.myMessageColor1, AppColorss.myMessageColor],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: widget.isLast ? Radius.circular(20) : Radius.circular(20),
+                      topRight: widget.isFirst ? Radius.circular(20) : Radius.circular(20),
+                    ),
+                  ),
+                  child: TextField(
+                    maxLines: null,
+                    keyboardAppearance: Brightness.dark,
+                    textAlignVertical: TextAlignVertical.center,
+                    style: TextStyle(color: AppColorss.textColor1, fontFamily: 'Arabic'),
+                    onChanged: (value) {
+                      editedMessage = value;
+                    },
+                    controller: TextEditingController(text: editedMessage),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                      // prefixIcon: Icon(
+                      //   Icons.edit,
+                      //   color: AppColorss.iconsColors.withOpacity(0.54),
+                      // ),
+                      focusedBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                    ),
+                  ),
+                ),
+              ),
+              actions: [
+                TextButton(
+                  child: Text(AppStringss.no, style: TextStyle(color: AppColorss.textColor2),),
+                  onPressed: () {
+                    Navigator.pop(context); // Close the dialog
+                  },
+                ),
+                TextButton(
+                  child:  Text(AppStringss.save,style: const TextStyle(color: Color.fromRGBO(
+                      18, 114, 210, 1.0),),),
+                  onPressed: () {
+                    // Update the message in Firebase Firestore
+                    _updateMessageInFirestore(context, editedMessage);
+                    Navigator.pop(context); // Close the dialog
+                  },
+                ),
+              ],
             ),
-            TextButton(
-              child:  Text(AppStringss.save,style: const TextStyle(color: Color.fromRGBO(
-                  18, 114, 210, 1.0),),),
-              onPressed: () {
-                // Update the message in Firebase Firestore
-                _updateMessageInFirestore(context, editedMessage);
-                Navigator.pop(context); // Close the dialog
-              },
-            ),
+
           ],
         );
       },
@@ -412,32 +439,43 @@ class _MyMessageCardState extends State<MyMessageCard> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor:  AppColorss.thirdColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          title:  Text(AppStringss.deleteMessage, style: const TextStyle(color: Colors.red),),
-          content: Text(AppStringss.confirmDelete, style: TextStyle(color: AppColorss.textColor1),),
-          actions: [
-            TextButton(
-              child: Text(AppStringss.no, style: TextStyle(color: AppColorss.textColor2),),
-              onPressed: () {
-                Navigator.pop(context); // Close the dialog
-              },
-            ),
-            TextButton(
-              child:  Text(AppStringss.deleteForMe , style : const TextStyle(color:  Color.fromRGBO(
-                  18, 114, 210, 1.0),),),
-              onPressed: () {
-                _deleteMessageFromFirestoreForMe(context);
-                Navigator.pop(context); // Close the dialog
-              },
-            ),
-            TextButton(
-              child:  Text(AppStringss.deleteForAll , style : const TextStyle(color: Colors.red)),
-              onPressed: () {
-                _deleteMessageFromFirestoreForAll(context);
-                Navigator.pop(context); // Close the dialog
-              },
+        return Stack(
+          children: [
+            BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              child: Container(
+                color: Colors.black.withOpacity(0.5),
+                constraints: BoxConstraints.expand(),
+              ),
+        ),
+            AlertDialog(
+              backgroundColor:  Colors.transparent,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              title:  Text(AppStringss.deleteMessage, style: const TextStyle(color: Colors.red),),
+              content: Text(AppStringss.confirmDelete, style: TextStyle(color: AppColorss.textColor1),),
+              actions: [
+                TextButton(
+                  child: Text(AppStringss.no, style: TextStyle(color: AppColorss.textColor2),),
+                  onPressed: () {
+                    Navigator.pop(context); // Close the dialog
+                  },
+                ),
+                TextButton(
+                  child:  Text(AppStringss.deleteForMe , style : const TextStyle(color:  Color.fromRGBO(
+                      18, 114, 210, 1.0),),),
+                  onPressed: () {
+                    _deleteMessageFromFirestoreForMe(context);
+                    Navigator.pop(context); // Close the dialog
+                  },
+                ),
+                TextButton(
+                  child:  Text(AppStringss.deleteForAll , style : const TextStyle(color: Colors.red)),
+                  onPressed: () {
+                    _deleteMessageFromFirestoreForAll(context);
+                    Navigator.pop(context); // Close the dialog
+                  },
+                ),
+              ],
             ),
           ],
         );

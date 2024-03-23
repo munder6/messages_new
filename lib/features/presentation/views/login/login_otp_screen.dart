@@ -131,7 +131,9 @@ class _OtpScreenState extends State<OtpScreen> {
                           color: Colors.grey,
                         ),
                       ),
-                      onEnd: () {},
+                      onEnd: () {
+                        Text("Try Again ?");
+                      },
                     ),
                   ],
                 ),

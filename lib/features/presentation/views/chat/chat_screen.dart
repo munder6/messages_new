@@ -36,20 +36,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColorss.primaryColor,
-      appBar: PreferredSize(
-          preferredSize: Size(MediaQuery.of(context).size.width, 43),
-          child: Container(
-            child: ClipRRect(
-                child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    child: Container(
-                      child: ChatAppBar(name: widget.name, receiverId: widget.uId),
-                      //   width: MediaQuery.of(context).size.width,
-                      //  height: MediaQuery.of(context).padding.top,
-                      color: Colors.transparent,
-                    ))),
-            ),
-          ),
+      appBar: ChatAppBar(name: widget.name, receiverId: widget.uId),
          // child: ChatAppBar(name: widget.name, receiverId: widget.uId)
 
       body: Stack(

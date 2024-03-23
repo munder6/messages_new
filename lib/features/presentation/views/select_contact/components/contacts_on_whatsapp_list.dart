@@ -25,7 +25,7 @@ class ContactsOnMessageMeList extends StatelessWidget {
         return Container(
           padding: EdgeInsets.all(2),
           decoration: BoxDecoration(
-            color: AppColorss.thirdColor,
+            color: AppColorss.secondaryColor,
             borderRadius: BorderRadius.circular(15)
           ),
           margin: const EdgeInsets.only(top: 0, right: 15, left: 15, bottom: 15),
