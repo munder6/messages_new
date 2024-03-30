@@ -47,10 +47,6 @@ class _ChatScreenState extends State<ChatScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MessagesList(receiverId: widget.uId),
-              // Divider(
-              //   color: AppColorss.dividersColor.withOpacity(0.3),
-              //   height: 0.3,
-              // ),
               BottomChatWithIcon(receiverId: widget.uId),
             ],
           ),

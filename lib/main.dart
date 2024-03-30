@@ -43,28 +43,28 @@ Future<void> main() async {
     //options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // String? fcmToken = await FirebaseMessaging.instance.getToken();
-  // FirebaseService.fcmToken = fcmToken ?? '';
-  // print('FCM Token: ${FirebaseService.fcmToken}');
-  //
-  // FirebaseMessaging.instance.getToken().then((token) {
-  //   print('The Token $token');
-  // }).catchError((error) {
-  //   print('Failed to get token: $error');
-  // });
-  //
-  //
-  // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  //   print('Received a foreground message: ${message.messageId}');
-  //
-  //   if (!AppRoutes.isChatScreenActive) {
-  //     Fluttertoast.showToast(
-  //       msg: 'You Have a new message',
-  //       toastLength: Toast.LENGTH_LONG,
-  //       gravity: ToastGravity.TOP,
-  //     );
-  //   }
-  // });
+  String? fcmToken = await FirebaseMessaging.instance.getToken();
+  FirebaseService.fcmToken = fcmToken ?? '';
+  print('FCM Token: ${FirebaseService.fcmToken}');
+
+  FirebaseMessaging.instance.getToken().then((token) {
+    print('The Token $token');
+  }).catchError((error) {
+    print('Failed to get token: $error');
+  });
+
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Received a foreground message: ${message.messageId}');
+
+    if (!AppRoutes.isChatScreenActive) {
+      Fluttertoast.showToast(
+        msg: 'You Have a new message',
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.TOP,
+      );
+    }
+  });
 
 
    await requestNotificationPermission();

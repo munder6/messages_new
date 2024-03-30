@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:message_me_app/core/functions/navigator.dart';
@@ -92,7 +93,7 @@ class _ContactsChatPageState extends State<ContactsChatPage> {
             ChatContactCard(
               chatContact: contacts[index],
             ),
-           // // Divider(indent: 88, height: 0.1,color: AppColorss.dividersColor.withOpacity(0.5),),
+     Divider(indent: 88, height: 0.1,color: AppColorss.dividersColor.withOpacity(0.2),),
            //  ChatContactCard(
            //    chatContact: contacts[index],
            //  ),
@@ -130,7 +131,7 @@ class ChatContactCard extends StatelessWidget {
             background: Container(
               height: 60,
               color: Colors.red,
-              child: const Icon(Icons.delete_outline, color: Colors.white, size: 30,),
+              child: const Icon(FluentIcons.delete_28_regular, color: Colors.white, size: 30,),
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.only(left: 20),
             ),

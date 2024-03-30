@@ -89,7 +89,7 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
   Future<void> saveUserDataToFirebase(UserDataParameters parameters) async {
     String uId = await getCurrentUid();
 
-    String photoUrl = '';
+    String photoUrl = 'https://picsum.photos/600';
     if (parameters.profilePic != null) {
       photoUrl = await _storeFileToFirebase(
         'profilePic/$uId',

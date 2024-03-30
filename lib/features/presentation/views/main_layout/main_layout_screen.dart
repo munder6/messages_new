@@ -66,20 +66,9 @@ class _MainLayoutScreenState extends State<MainLayoutScreen>
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(10),
         child: AppBar(
-          // actions:  [
-          // //const Icon(FluentIcons.camera_24_regular, color: AppColorss.myMessageColor,),
-          // const SizedBox(width: 13),
-          //   IconButton(
-          //       onPressed: () {navigateTo(context, Routes.selectContactRoute);},
-          //       icon : const Icon(FluentIcons.tab_add_24_regular,color: AppColorss.myMessageColor)),
-          //   const SizedBox(width: 15),
-          // ],
+
           elevation: 0,
           centerTitle: false,
-          // title:  Text(
-          //   AppStringss.edit,
-          //   style:  const TextStyle(fontSize: 16, fontWeight: FontWeight.normal, fontFamily: 'Arabic', color: AppColorss.myMessageColor),
-          // ),
           backgroundColor: AppColorss.primaryColor,
         ),
       ),
@@ -181,51 +170,6 @@ class _MainLayoutScreenState extends State<MainLayoutScreen>
             ),
           ),
           const SizedBox(height: 5),
-          // InkWell(
-          //   onTap: () {navigateTo(context, Routes.selectContactRoute);},
-          //   child: Container(
-          //
-          //     decoration: BoxDecoration(
-          //         color: AppColorss.thirdColor,
-          //       borderRadius: BorderRadius.circular(50)
-          //     ),
-          //     margin: const EdgeInsets.only(left: 15, right: 15),
-          //     child: Row(
-          //       mainAxisAlignment: MainAxisAlignment.start,
-          //       children: [
-          //         const SizedBox(width: 8),
-          //         IconButton(
-          //             onPressed: () {navigateTo(context, Routes.selectContactRoute);},
-          //             icon : const Icon(FluentIcons.tab_add_24_regular,color: AppColorss.myMessageColor)),
-          //         const Text("Add A New Chat", style: TextStyle(fontSize: 16),)
-          //
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          //  Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       Text(AppStringss.broadcast, style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 15, color: AppColorss.myMessageColor),),
-          //       Text(AppStringss.newGroup, style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 15, color: AppColorss.myMessageColor),)
-          //     ],
-          //   ),
-          // ),
-          // Divider(color: AppColorss.textColor1.withOpacity(0.4),height: 0,indent: 0,),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 34.0, vertical: 10),
-          //   child: Row(
-          //     children: [
-          //       Icon(FluentIcons.archive_28_filled, color: Colors.grey.shade600, size: 22,),
-          //       const SizedBox(width: 20),
-          //       Text(AppStringss.archived, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16, color: AppColorss.textColor1),),
-          //     ],
-          //   ),
-          // ),
-          // Divider(color: AppColorss.textColor1.withOpacity(0.4),height: 0,indent: 89,),
-          // StoryWidget(),
           Expanded(
             child: ContactsChatPage(searchQuery: _searchController.text),
           ),

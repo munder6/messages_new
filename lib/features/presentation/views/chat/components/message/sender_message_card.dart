@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,6 +29,7 @@ class SenderMessageCard extends StatefulWidget {
   final Message message;
   final bool isFirst;
   final bool isLast;
+
 
   const SenderMessageCard({
     Key? key,
@@ -119,38 +121,50 @@ class _SenderMessageCardState extends State<SenderMessageCard> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: AppColorss.thirdColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          title:  Text(
-            AppStringss.deleteMessage,
-            style: TextStyle(color: Colors.red),
-          ),
-          content: Text(
-            AppStringss.confirmDelete,
-            style: TextStyle(color: AppColorss.textColor1),
-          ),
-          actions: [
-            TextButton(
-              child: Text(
-                AppStringss.no,
-                style: TextStyle(color: AppColorss.textColor2),
+        return Stack(
+          children: [
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              child: Container(
+                color: Colors.black.withOpacity(0.5),
+                constraints: BoxConstraints.expand(),
               ),
-              onPressed: () {
-                Navigator.pop(context); // Close the dialog
-              },
             ),
-            TextButton(
-              child: Text(
-                AppStringss.deleteForMe,
-                style: TextStyle(
-                  color: AppColorss.myMessageColor,
-                ),
+            AlertDialog(
+              backgroundColor: Colors.transparent,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              title:  Text(
+                AppStringss.deleteMessage,
+                style: TextStyle(color: Colors.red),
               ),
-              onPressed: () {
-                _deleteMessageFromFirestoreForMe(context);
-                Navigator.pop(context); // Close the dialog
-              },
+              content: Text(
+                AppStringss.confirmDelete,
+                style: TextStyle(color: AppColorss.confirm),
+              ),
+              actions: [
+                TextButton(
+                  child: Text(
+                    AppStringss.no,
+                    style: TextStyle(color:Color.fromRGBO(
+                        18, 114, 210, 1.0),),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context); // Close the dialog
+                  },
+                ),
+                TextButton(
+                  child: Text(
+                    AppStringss.deleteForMe,
+                    style: TextStyle(
+                      color: AppColorss.myMessageColor,
+                    ),
+                  ),
+                  onPressed: () {
+                    _deleteMessageFromFirestoreForMe(context);
+                    Navigator.pop(context); // Close the dialog
+                  },
+                ),
+              ],
             ),
           ],
         );
@@ -321,12 +335,12 @@ class _SenderMessageCardState extends State<SenderMessageCard> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const Padding(padding: EdgeInsets.symmetric(horizontal: 9)),
-                        widget.isLast
+                        widget.isLast || widget.isLast
                             ? MyCachedNetImage(
                           imageUrl: profilePic,
-                          radius: 13,
+                          radius: 12,
                         )
-                            : const Padding(padding: EdgeInsets.symmetric(horizontal: 13)),
+                            : const Padding(padding: EdgeInsets.symmetric(horizontal: 12)),
                         const SizedBox(width: 5),
                         InkWell(
                           focusColor: Colors.transparent,
@@ -359,7 +373,6 @@ class _SenderMessageCardState extends State<SenderMessageCard> {
                                 .update({
                               'isLiked': true,
                             });
-
                             await sendNotification(
                               receiverId: widget.message.senderId,
                               notificationTitle: 'Liked Message',
@@ -382,7 +395,7 @@ class _SenderMessageCardState extends State<SenderMessageCard> {
                                         : AppColorss.senderMessageColor,
                                     borderRadius: BorderRadius.only(
                                       topRight:  const Radius.circular(20),
-                                      bottomLeft: widget.isLast ? Radius.circular(widget.message.messageType == MessageType.audio || widget.isFirst ? 20 : 20) : const Radius.circular(5),
+                                      bottomLeft: widget.isLast || widget.isLast ? Radius.circular(widget.message.messageType == MessageType.audio || widget.isLast ? 20 : 20) : const Radius.circular(5),
                                       bottomRight: const Radius.circular(20),
                                       topLeft: widget.isFirst ? Radius.circular(widget.message.messageType == MessageType.audio || widget.isFirst ? 20 : 20) : const Radius.circular(5),
                                     ),

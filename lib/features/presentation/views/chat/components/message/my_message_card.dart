@@ -28,6 +28,7 @@ class MyMessageCard extends StatefulWidget {
   final bool isLast;
   final bool isLastForSeen;
 
+
   const MyMessageCard({
     Key? key,
     required this.message,
@@ -275,8 +276,8 @@ class _MyMessageCardState extends State<MyMessageCard> {
                                     borderRadius: BorderRadius.only(
                                       topLeft: const Radius.circular(20),
                                       bottomLeft: const Radius.circular(20),
-                                      bottomRight: widget.isLast ? const Radius.circular(20) : const Radius.circular(5),
-                                      topRight: widget.isFirst ? const Radius.circular(20) : const Radius.circular(5),
+                                      bottomRight: widget.isLast || widget.isLast ? const Radius.circular(20) : const Radius.circular(5),
+                                      topRight: widget.isFirst || widget.isFirst ? const Radius.circular(20) : const Radius.circular(5),
                                     ),
                                   ),
                                   child: MessageContent(
@@ -452,10 +453,11 @@ class _MyMessageCardState extends State<MyMessageCard> {
               backgroundColor:  Colors.transparent,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               title:  Text(AppStringss.deleteMessage, style: const TextStyle(color: Colors.red),),
-              content: Text(AppStringss.confirmDelete, style: TextStyle(color: AppColorss.textColor1),),
+              content: Text(AppStringss.confirmDelete, style: TextStyle(color: AppColorss.confirm),),
               actions: [
                 TextButton(
-                  child: Text(AppStringss.no, style: TextStyle(color: AppColorss.textColor2),),
+                  child: Text(AppStringss.no, style: TextStyle(color:  Color.fromRGBO(
+        18, 114, 210, 1.0),),),
                   onPressed: () {
                     Navigator.pop(context); // Close the dialog
                   },

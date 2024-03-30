@@ -65,6 +65,7 @@ class AppColorss {
   static final Color dialogColor = isWhite ? Colors.white70 : Colors.black54;
   static final Color timeSentColor = isWhite ? Colors.white70 : Colors.white70;
   static const Color red = Colors.red;
+  static final Color confirm = isWhite ? Colors.white : Colors.white;
   static const Color test = Color.fromARGB(255, 31, 29, 29);
 }
 

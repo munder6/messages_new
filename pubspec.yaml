@@ -105,4 +105,4 @@ flutter:
           weight: 300
     - family: Arabic
       fonts:
-        - asset: assets/fonts/ArabicUITextMedium.otf
+        - asset: assets/fonts/IBMPlexSansArabic-Regular.ttf

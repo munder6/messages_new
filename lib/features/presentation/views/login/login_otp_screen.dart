@@ -22,6 +22,8 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  bool showTryAgainText = false;
+
 
   @override
   void initState() {
@@ -85,6 +87,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     borderRadius: BorderRadius.circular(15),
                     enabledBorderColor: Colors.grey[900]!,
                     numberOfFields: 6,
+                    focusedBorderColor: Colors.red,
                     borderColor:  Colors.grey[900]!,
                     //set to true to show as box or false to show as dash
                     showFieldAsBox: true,
@@ -122,6 +125,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     //   ),
                     // ),
                    // const Spacer(),
+                  //  if(showTryAgainText = false)
                     TweenAnimationBuilder(
                       tween: Tween(begin: 60.0, end: 0),
                       duration: const Duration(seconds: 60),
@@ -132,11 +136,19 @@ class _OtpScreenState extends State<OtpScreen> {
                         ),
                       ),
                       onEnd: () {
-                        Text("Try Again ?");
+                        setState(() {
+                          showTryAgainText = true;
+                        });
                       },
                     ),
                   ],
                 ),
+                if (showTryAgainText )
+                  InkWell(
+                      onTap: (){
+                        navigateAndReplace(context, Routes.loginRoute);
+                      },
+                      child:  const Text("Don't recive the code ? Try Again ...", style: TextStyle(color: Colors.red),))
               ],
             ),
           ),
